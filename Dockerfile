@@ -1,10 +1,13 @@
+# Used when Railway builds from the repo root (dockerfile: Dockerfile).
+# Local Compose still builds ./backend with backend/Dockerfile.
+
 FROM python:3.12-slim AS builder
 
 WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 FROM python:3.12-slim
@@ -15,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends libpq5 curl \
     && addgroup --system app && adduser --system --ingroup app app
 
 COPY --from=builder /root/.local /home/app/.local
-COPY app ./app
+COPY backend/app ./app
 RUN chown -R app:app /home/app
 
 ENV PATH=/home/app/.local/bin:$PATH

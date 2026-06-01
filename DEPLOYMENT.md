@@ -5,8 +5,9 @@
 1. New project on [railway.app](https://railway.app) from this repo.
 2. Add **PostgreSQL** (database plugin only — do not connect your GitHub repo to the Postgres service).
 3. Add a **second service** from GitHub for the API:
-   - **Root Directory:** `backend`
-   - **Builder:** Dockerfile (Settings → Build)
+   - **Root Directory:** leave **empty** (repo root; uses `/Dockerfile`)
+   - **Builder:** Dockerfile
+   - Alternative: Root Directory `backend` and Dockerfile `Dockerfile` (uses `backend/Dockerfile`)
 4. Variables on the API service: `DATABASE_URL` (from Postgres), `PORT=8000`, `CORS_ORIGINS` (optional until Vercel is live)
 5. Public domain under Networking.
 
