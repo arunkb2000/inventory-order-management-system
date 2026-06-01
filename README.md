@@ -32,3 +32,14 @@ Hosting notes: [DEPLOYMENT.md](./DEPLOYMENT.md)
 ## License
 
 MIT
+
+## Live Deployment
+
+Frontend:
+https://inventory-order-management-system-khaki.vercel.app
+
+Backend:
+https://inventory-order-management-system-production.up.railway.app
+
+Docker Hub:
+https://hub.docker.com/r/arunbisariya/inventory-backend
