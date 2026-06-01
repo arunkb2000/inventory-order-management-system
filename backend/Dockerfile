@@ -18,7 +18,9 @@ COPY --from=builder /root/.local /home/app/.local
 COPY app ./app
 RUN chown -R app:app /home/app
 
+ENV HOME=/home/app
 ENV PATH=/home/app/.local/bin:$PATH
+ENV PYTHONPATH=/home/app/.local/lib/python3.12/site-packages
 ENV PYTHONUNBUFFERED=1
 ENV PORT=8000
 
