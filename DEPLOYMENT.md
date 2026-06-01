@@ -1,43 +1,27 @@
-# Deployment Guide
+# Hosting
 
-## Railway (Backend + PostgreSQL)
+## API (Railway)
 
-1. Push this repository to GitHub.
-2. Go to [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub repo**.
-3. Add **PostgreSQL** to the project (Railway injects `DATABASE_URL` into linked services).
-4. Configure the backend service:
-   - **Root directory:** `backend`
-   - Or set Dockerfile path: `backend/Dockerfile`
-5. Set environment variables on the backend service:
-   - `DATABASE_URL` — reference from Postgres plugin (usually auto-linked)
-   - `CORS_ORIGINS` — your Vercel URL, e.g. `https://your-app.vercel.app`
-   - `PORT` — `8000`
-6. Generate a **public domain** under Networking.
-7. Verify: `curl https://YOUR-RAILWAY-URL/health`
+1. New project on [railway.app](https://railway.app) from this repo.
+2. Add **PostgreSQL** (database plugin only — do not connect your GitHub repo to the Postgres service).
+3. Add a **second service** from GitHub for the API:
+   - **Root Directory:** `backend`
+   - **Builder:** Dockerfile (Settings → Build)
+4. Variables on the API service: `DATABASE_URL` (from Postgres), `PORT=8000`, `CORS_ORIGINS` (optional until Vercel is live)
+5. Public domain under Networking.
 
-## Vercel (Frontend)
+Check: `curl https://<api-host>/health`
 
-1. Go to [vercel.com](https://vercel.com) → **Add New Project** → import GitHub repo.
+### Build failed in a few seconds?
+
+- Open the **API** service (not Postgres) → **Deployments** → click the failed deploy → read **Build Logs**.
+- Postgres must not use your app repo or `backend` as root directory.
+- Root directory must be exactly `backend` (no leading `/`).
+- Push latest code: `git push origin main`, then redeploy.
+
+## Frontend (Vercel)
+
+1. Import repo on [vercel.com](https://vercel.com).
 2. **Root Directory:** `frontend`
-3. Framework: **Vite**
-4. Environment variable:
-   - `VITE_API_URL` = `https://YOUR-RAILWAY-URL` (no trailing slash)
-5. Deploy, then update Railway `CORS_ORIGINS` with the Vercel URL and redeploy backend if needed.
-
-## Docker Hub
-
-```bash
-docker login
-docker build -t YOUR_DOCKERHUB_USER/inventory-backend:latest ./backend
-docker push YOUR_DOCKERHUB_USER/inventory-backend:latest
-```
-
-Image URL: `https://hub.docker.com/r/YOUR_DOCKERHUB_USER/inventory-backend`
-
-## Submission checklist
-
-- [ ] GitHub repository URL
-- [ ] Docker Hub backend image URL
-- [ ] Live Vercel frontend URL
-- [ ] Live Railway backend URL
-- [ ] Update README.md Live URLs table
+3. `VITE_API_URL` = Railway API URL (no trailing slash).
+4. Set `CORS_ORIGINS` on Railway to the Vercel URL and redeploy the API.

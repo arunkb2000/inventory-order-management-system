@@ -59,7 +59,7 @@ export default function Dashboard() {
       <section className="card">
         <h3>Low Stock Products (&lt; {LOW_STOCK_THRESHOLD} units)</h3>
         {stats.lowStock.length === 0 ? (
-          <p className="muted">All products are adequately stocked.</p>
+          <p className="muted">No low-stock items.</p>
         ) : (
           <div className="table-wrap">
             <table>
@@ -85,7 +85,7 @@ export default function Dashboard() {
           </div>
         )}
         <Link to="/products" className="link-btn">
-          Manage Products →
+          View products
         </Link>
       </section>
     </div>

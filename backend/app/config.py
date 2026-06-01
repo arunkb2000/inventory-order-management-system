@@ -6,6 +6,8 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     database_url: str = "postgresql://inventory:inventory_secret@localhost:5432/inventory_db"
+    cors_origins: str = "http://localhost:3000,http://localhost:5173"
+    port: int = 8000
 
     @field_validator("database_url", mode="before")
     @classmethod
@@ -13,8 +15,6 @@ class Settings(BaseSettings):
         if isinstance(value, str) and value.startswith("postgres://"):
             return value.replace("postgres://", "postgresql://", 1)
         return value
-    cors_origins: str = "http://localhost:3000,http://localhost:5173"
-    port: int = 8000
 
     @property
     def cors_origin_list(self) -> list[str]:

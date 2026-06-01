@@ -11,11 +11,7 @@ from app.exceptions import AppException
 from app.models import Customer, Order, OrderItem, Product  # noqa: F401
 from app.routers import customers, orders, products
 
-app = FastAPI(
-    title="Inventory & Order Management API",
-    description="Manage products, customers, and orders with inventory tracking",
-    version="1.0.0",
-)
+app = FastAPI(title="Inventory API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,

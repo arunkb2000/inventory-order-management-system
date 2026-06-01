@@ -76,7 +76,7 @@ export default function Orders() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Cancel/delete this order? Stock will be restored.')) return;
+    if (!window.confirm('Delete this order?')) return;
     try {
       await api.deleteOrder(id);
       showToast('Order deleted');
@@ -103,7 +103,7 @@ export default function Orders() {
       </div>
 
       {(customers.length === 0 || products.length === 0) && (
-        <p className="muted banner">Add customers and products before creating orders.</p>
+        <p className="muted banner">Add a customer and at least one product first.</p>
       )}
 
       <div className="card table-wrap">

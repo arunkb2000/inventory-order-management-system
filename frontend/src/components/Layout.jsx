@@ -13,7 +13,7 @@ export default function Layout() {
     <div className="layout">
       <header className="header">
         <div className="header-inner">
-          <h1 className="logo">InventoryPro</h1>
+          <h1 className="logo">Inventory</h1>
           <nav className="nav">
             {navItems.map(({ to, label, end }) => (
               <NavLink key={to} to={to} end={end} className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>

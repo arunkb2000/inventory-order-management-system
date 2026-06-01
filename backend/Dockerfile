@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends libpq5 curl \
 
 COPY --from=builder /root/.local /home/app/.local
 COPY app ./app
+RUN chown -R app:app /home/app
 
 ENV PATH=/home/app/.local/bin:$PATH
 ENV PYTHONUNBUFFERED=1
@@ -25,6 +26,6 @@ USER app
 EXPOSE 8000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
-    CMD curl -f http://localhost:${PORT}/health || exit 1
+    CMD curl -f http://localhost:8000/health || exit 1
 
 CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT}
