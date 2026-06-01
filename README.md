@@ -34,6 +34,7 @@ Hosting notes: [DEPLOYMENT.md](./DEPLOYMENT.md)
 MIT
 
 ## Live Deployment
+--------------------
 
 Frontend:
 https://inventory-order-management-system-khaki.vercel.app
